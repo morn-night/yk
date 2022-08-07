@@ -1,0 +1,40 @@
+﻿
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+ 	<script src="views/js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+	用户名：<input type="text" id="username" name="username"/><br/>
+	密码：<input type="password" id="password" name="password"/><br/>
+	<button id="s_button" onclick="s_login()">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
+</body>
+</html>
+
+
+<script>
+
+	function s_login(){
+		
+		var username=document.getElementById("username").value;
+		var password=document.getElementById("password").value;
+		$.ajax({
+			url:"login",
+			type:"post",  
+            data:{"username":username,"password":password},  
+            dataType:"json",  
+            success:function(data){
+            	if(data.id!=null){
+            		window.location.href="forward?view=index";
+            		//window.location.href="list";
+            	}else{
+            		alert("用户名或密码错误");
+            	}
+            },
+            error:function(data){
+            	alert(data);
+            }
+		});
+		
+	}
+</script>

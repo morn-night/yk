@@ -1,0 +1,65 @@
+﻿
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+ 
+	</head>
+	<body>
+		<div>
+			<div>进入添加界面</div>
+			<div><input type="text" id="id" style="display:none;"></div>
+  			<div>姓名：<input type="text" id="name" ></div>
+  			<div>用户：<input type="text" id="username" ></div>
+  			<div>密码：<input type="password" id="password" ></div>
+  			<div>性别：<input type="text" id="sex" ></div>
+  			<div>班级：<input type="text" id="classname" ></div>
+  			<div>语文：<input type="text" id="chinese" ></div>
+  			<div>英语：<input type="text" id="english" ></div>
+  			<div>数学：<input type="text" id="math" ></div>
+			
+			<div>
+				<button id="button2" onclick="saveStudent()">
+				提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+			</div>	
+		</div>
+		
+	</body>
+</html>
+
+<script src="views/js/jquery-3.2.1.min.js"></script>
+<script>
+	//添加数据方法
+
+	function saveStudent(){
+		//获取文本框的值  
+		var name=$('#name').val();
+		var username=$('#username').val();
+		var password=$('#password').val();
+		var sex=$('#sex').val();
+		var classname=$('#classname').val();
+		var english=$('#english').val();
+		var chinese=$('#chinese').val();
+		var math=$('#math').val();
+		var data1={"name":name,"username":username,"password":password,"sex":sex,
+				"classname":classname,"english":english,"chinese":english,"math":math};
+		$.ajax({
+			url:"saveStudent",
+			type:"post", 
+			data:data1,
+       	 	dataType:"json",  
+        	success:function(data){
+        		if(data==1){
+        			alert("添加成功");
+        			//刷新父页面 
+        			window.opener.location.reload();
+        			//关闭子窗口
+					window.close(); 
+        		}
+       	 	},
+			error(data){
+        		alert('error');
+        	}
+		});
+	}
+
+</script>

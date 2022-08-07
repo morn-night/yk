@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="action.dao.StudentDAO">
+
+  <!--根据ID去査值  -->
+  <select id="findById" parameterType="java.lang.Integer" resultType="action.entity.Student">
+	select * from student_xiao where id=#{id}
+  </select>
+  
+  <!--根据username,password去査值  -->
+  <select id="findByUserNameByPassWord" parameterType="java.lang.String" resultType="action.entity.Student">
+	select * from student_xiao where username=#{username} and password=#{password}
+  </select>
+  
+  
+  
+  <!--查询所有用户  -->
+  <select id="findAll"  resultType="action.entity.Student">
+	select * from student_xiao 
+  </select>
+  
+  
+  <!--   根据主键修改数据 -->
+   <update id="updateById"  parameterType="action.entity.Student" >
+  	update student_xiao set name=#{name},username=#{username},password=#{password},
+  		sex=#{sex},classname=#{classname},chinese=#{chinese},english=#{english},
+  			math=#{math} 
+  	where id=#{id}
+  </update>
+  
+  
+  <!--  添加数据 -->
+  <insert id="saveStudent" parameterType="action.entity.Student">
+  	insert into student_xiao(name,username,password,sex,classname,chinese,english,math)
+  		values(#{name},#{username},#{password},#{sex},#{classname},#{chinese},#{english},#{math})
+  </insert>
+  
+  
+  <!--   根据主键删除数据 -->
+  <delete id="deleteStudent" parameterType="java.lang.Integer">
+  	delete from student_xiao where id=#{id}
+  </delete>
+</mapper>

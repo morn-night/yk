@@ -1,0 +1,95 @@
+﻿
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+ 
+	</head>
+	<body>
+		<div>
+			<div>进入修改界面</div>
+			<div><input type="text" id="id" style="display:none;"></div>
+  			<div>姓名：<input type="text" id="name" ></div>
+  			<div>用户：<input type="text" id="username" ></div>
+  			<div>密码：<input type="password" id="password" ></div>
+  			<div>性别：<input type="text" id="sex" ></div>
+  			<div>班级：<input type="text" id="classname" ></div>
+  			<div>语文：<input type="text" id="chinese" ></div>
+  			<div>英语：<input type="text" id="english" ></div>
+  			<div>数学：<input type="text" id="math" ></div>
+			
+			<div>
+				<button id="button2" onclick="update()">
+				提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+			</div>	
+		</div>
+		
+	</body>
+</html>
+
+<script src="views/js/jquery-3.2.1.min.js"></script>
+<script>
+	
+	window.onload=function jieshou_can(){
+		
+		//获取父窗口文本框的值 
+		var opn=window.opener;
+		var id=opn.$('#id').val();
+		var name=opn.$('#name').val();
+		var username=opn.$('#username').val();
+		var password=opn.$('#password').val();
+		var sex=opn.$('#sex').val();
+		var classname=opn.$('#classname').val();
+		var english=opn.$('#english').val();
+		var chinese=opn.$('#chinese').val();
+		var math=opn.$('#math').val();
+		
+		//给文本框赋值
+		$('#id').val(id);
+		$('#name').val(name);
+		$('#username').val(username);
+		$('#password').val(password);
+		$('#sex').val(sex);
+		$('#classname').val(classname);
+		$('#english').val(english);
+		$('#chinese').val(chinese);
+		$('#math').val(math);
+	}
+	
+</script>
+<script>
+	//修改数据方法 
+
+	function update(){
+		//获取修改过的值 
+		var id=$('#id').val();
+		var name=$('#name').val();
+		var username=$('#username').val();
+		var password=$('#password').val();
+		var sex=$('#sex').val();
+		var classname=$('#classname').val();
+		var english=$('#english').val();
+		var chinese=$('#chinese').val();
+		var math=$('#math').val();
+		var data1={"id":id,"name":name,"username":username,"password":password,"sex":sex,
+				"classname":classname,"english":english,"chinese":english,"math":math}
+		$.ajax({
+			url:"update",
+			type:"post", 
+			data:data1,
+       	 	dataType:"json",  
+        	success:function(data){
+        		if(data==1){
+        			alert("修改成功");
+        			//刷新父页面 
+        			window.opener.location.reload();
+        			//关闭子窗口
+					window.close(); 
+        		}
+       	 	},
+			error(data){
+        		alert('error');
+        	}
+		});
+	}
+
+</script>
