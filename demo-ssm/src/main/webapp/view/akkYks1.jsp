@@ -1,0 +1,83 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: 左岸咖啡
+  Date: 2022/8/7
+  Time: 21:49
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listYk1</title>
+
+
+
+    <script src="/js/jquery-3.2.1.js"></script>
+
+    <script src="/js/jquery-3.2.1.js">
+        $(function () {
+            listYk();
+        })
+
+        let yks=[];
+        function listYk() {
+
+            $.ajax({
+                url:"http://localhost:8080/yk1/list",
+                type:"get",
+                dataType:"json",
+                success:function (data) { //data自定义
+                    console.log(data);
+                    for (let i=0;i<yks.length;i++){
+                        let tempHtml=$("#temp").html();
+                        tempHtml=tempHtml.replaceAll("{{编号}}",yks[i]["id"]);
+                        tempHtml=tempHtml.replaceAll("{{名字}}",yks[i]["name"]);
+                        tempHtml=tempHtml.replaceAll("{{性别}}",yks[i]["sex"]);
+                        tempHtml=tempHtml.replaceAll("{{图片}}",yks[i]["img"]);
+
+                        //以dom元素追加到table
+                        $("table").append($(tempHtml));
+                    }
+
+                }
+            })
+
+        }
+
+    </script>
+
+</head>
+<body>
+
+
+<div>
+    <h3>yk表</h3>
+
+    <script type="text/html" id="temp">
+        <tr>
+            <td>{{编号}}</td>
+            <td>{{名字}}</td>
+            <td>{{性别}}</td>
+
+            <td>{{图片}}</td>
+
+            <td>{{操作}}</td>
+        </tr>
+
+
+    </script>
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>编号</th>
+            <th>名字</th>
+            <th>性别</th>
+
+            <th>图片</th>
+
+            <th>操作</th>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

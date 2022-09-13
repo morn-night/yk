@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--增加-->
+id：<input type="text" value="" id="userid"/><br>
+name：<input type="text" value="" id="name"/><br>
+sex：男：<input type="radio" name="sex" value="男">女：<input type="radio"  name="sex" value="女"><br>
+<input type="button" value="添加" id="btn_1" onclick="add()"/>
+<br>
+
+
+
+
+
+</body>
+
+<script type="text/javascript">
+    // 增加
+    function add() {
+        var id = $("#id").val();
+        var name = $("#name").val();
+        var sex = $('input[name="sex"]:checked').val();
+        var data={
+            "id":id,
+            "name":name,
+            "sex":sex
+        }
+
+        $.ajax({
+            type : "post",
+            url : "demo",//这是你要请求的接口网址，之后所有接口都是随便写的接口
+            data : data,//传输的数据，当然传输的数据也可以在url链接后面打个问号传
+            cache : true, // 表示浏览器是否缓存被请求页面,默认是 true
+            async : true, // 异步，默认开启，也就是$.ajax后面的代码是不是跟$.ajax里面的代码一起执行
+            dataType:"json",   // 返回浏览器的数据类型，指定是json格式，前端这里才可以解析json数据
+            success: function (data){
+                if(data.code == 200){
+                    alert("插入成功了");
+                }else{
+                    alert(data.message);
+                }
+            },
+            error:function () {
+
+                alert('出错了');
+            }
+
+        });
+    }
+</script>
+
+</html>
